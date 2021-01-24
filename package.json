@@ -1,0 +1,13 @@
+{
+  "name": "Attendance-Slack-App",
+  "version": "1.0.0",
+  "description": "Check In App",
+  "author": "Jonathan Wong",
+  "license": "MIT",
+  "dependencies": {
+    "docker-machine": "^3.0.0"
+  },
+  "devDependencies": {
+    "serverless-python-requirements": "^4.2.5"
+  }
+}
