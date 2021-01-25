@@ -19,6 +19,7 @@ service_account_creds = {
 spreadsheet_id = ''
 #name of semester spreadsheet where data is stored
 semester = 'Spring 2021'
+spreadsheet_timezone = 'America/Chicago'
 
 def create_user_handler(user, text):
     return asyncio.run(create_user(user, text))
@@ -164,14 +165,14 @@ async def insert_row(google, sheets_api, sheet_name, data):
     request = sheets_api.spreadsheets.values.append(range=sheet_name, spreadsheetId=spreadsheet_id, valueInputOption='RAW', insertDataOption='OVERWRITE', json=value_range_body)
     return await google.as_service_account(request)
 
-def get_iso_timestamp(timezone="America/Chicago"):
+def get_iso_timestamp(timezone=spreadsheet_timezone):
     return datetime.utcnow().replace(tzinfo=pytz.UTC).astimezone(pytz.timezone(timezone)).isoformat()
 
-def adjusted_datetime(timezone="America/Chicago"):
+def adjusted_datetime(timezone=spreadsheet_timezone):
     return datetime.utcnow().replace(tzinfo=pytz.UTC).astimezone(pytz.timezone(timezone))
 
 #returns dates in this format 9/26/2008 15:00:00
-def get_google_timestamp(timezone="America/Chicago"):
+def get_google_timestamp(timezone=spreadsheet_timezone):
     return adjusted_datetime(timezone=timezone).strftime("%m/%d/%Y %H:%M:%S")
 
 def subtract_dates(start_time, stop_time):
