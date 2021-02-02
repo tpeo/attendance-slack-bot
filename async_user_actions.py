@@ -72,7 +72,7 @@ async def check_in(user, text):
         user_checkin_datetime = adjusted_datetime()
         event_start_time = datetime.strptime(event_match[3], '%I:%M %p').time()
         time_delta = subtract_dates(event_start_time, user_checkin_datetime.time())
-        if user_checkin_datetime.strftime('%A') != event_match[2] or (time_delta/60 < -10):
+        if user_checkin_datetime.strftime('%A') != event_match[2] or (abs(time_delta/60) > 10):
             return {
                 'body': f"{event_match[0]} is closed for check in at this time.",
                 'header': "Invalid Check In Time 😔"
